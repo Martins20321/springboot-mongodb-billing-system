@@ -1,5 +1,6 @@
 package com.estudospringmartins.mongobilling.resources;
 
+import com.estudospringmartins.mongobilling.domain.Charge;
 import com.estudospringmartins.mongobilling.domain.Customer;
 import com.estudospringmartins.mongobilling.dto.CustomerDTO;
 import com.estudospringmartins.mongobilling.services.CustomerService;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,6 +32,12 @@ public class CustomerResource {
     public ResponseEntity<CustomerDTO> findById(@PathVariable String id){
         Customer obj = service.findById(id);
         return ResponseEntity.ok().body(new CustomerDTO(obj));
+    }
+
+    @GetMapping("/{id}/chargers")
+    public ResponseEntity<Set<Charge>> findCharges(@PathVariable String id){
+        Customer obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getCharges());
     }
 
     @PostMapping

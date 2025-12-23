@@ -22,4 +22,8 @@ public class ChargeService {
         Optional<Charge> obj = repository.findById(id);
         return obj.get();
     }
+
+    public Charge insert(Charge obj){
+        return repository.save(obj);
+    }
 }

@@ -34,7 +34,7 @@ public class CustomerResource {
         return ResponseEntity.ok().body(new CustomerDTO(obj));
     }
 
-    @GetMapping("/{id}/chargers")
+    @GetMapping("/{id}/charges")
     public ResponseEntity<Set<Charge>> findCharges(@PathVariable String id){
         Customer obj = service.findById(id);
         return ResponseEntity.ok().body(obj.getCharges());

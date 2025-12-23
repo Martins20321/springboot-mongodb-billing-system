@@ -33,6 +33,17 @@ public class CustomerService {
         repository.deleteById(id);
     }
 
+    public Customer update(Customer obj){
+        Customer entity = findById(obj.getId());
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    private void updateData(Customer entity, Customer obj) {
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+    }
+
     public Customer fromDTO(CustomerDTO customerDTO){
         return new Customer(customerDTO.getId(), customerDTO.getName(), customerDTO.getEmail(), customerDTO.getDocument());
     }

@@ -26,4 +26,18 @@ public class ChargeService {
     public Charge insert(Charge obj){
         return repository.save(obj);
     }
+
+    //Uma cobrança não é apagada, ou seja, não possuíra delete
+
+    public Charge update(Charge obj){
+        Charge newCharge = findById(obj.getId());
+        UpdateData(newCharge, obj);
+        return repository.save(newCharge);
+    }
+
+    private void UpdateData(Charge newCharge, Charge obj) {
+        newCharge.setDescription(obj.getDescription());
+        newCharge.setDueDate(obj.getDueDate());
+        newCharge.setAmount(obj.getAmount());
+    }
 }

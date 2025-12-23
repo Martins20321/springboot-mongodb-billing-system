@@ -2,6 +2,7 @@ package com.estudospringmartins.mongobilling.domain;
 
 import com.estudospringmartins.mongobilling.domain.enums.ChargeStatus;
 import com.estudospringmartins.mongobilling.dto.ClientDTO;
+import com.estudospringmartins.mongobilling.dto.PaymentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,6 +21,9 @@ public class Charge implements Serializable {
     private ChargeStatus status;
 
     private ClientDTO client;
+
+    private PaymentDTO paymentDTO;
+
     public Charge(){
 
     }
@@ -78,6 +82,22 @@ public class Charge implements Serializable {
 
     public void setCustomer(ClientDTO client) {
         this.client = client;
+    }
+
+    public ClientDTO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientDTO client) {
+        this.client = client;
+    }
+
+    public PaymentDTO getPaymentDTO() {
+        return paymentDTO;
+    }
+
+    public void setPaymentDTO(PaymentDTO paymentDTO) {
+        this.paymentDTO = paymentDTO;
     }
 
     @Override

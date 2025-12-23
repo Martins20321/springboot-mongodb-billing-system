@@ -5,7 +5,10 @@ import com.estudospringmartins.mongobilling.Repository.CustomerRepository;
 import com.estudospringmartins.mongobilling.domain.Charge;
 import com.estudospringmartins.mongobilling.domain.Customer;
 import com.estudospringmartins.mongobilling.domain.enums.ChargeStatus;
+import com.estudospringmartins.mongobilling.domain.enums.PaymentMethod;
+import com.estudospringmartins.mongobilling.domain.enums.PaymentStatus;
 import com.estudospringmartins.mongobilling.dto.ClientDTO;
+import com.estudospringmartins.mongobilling.dto.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -39,8 +42,8 @@ public class instantiation implements CommandLineRunner {
 
         customerRepository.saveAll(Arrays.asList(c1,c2,c3));
 
-        Charge ch1 = new Charge(null, "Mensalidade Janeiro", sdf.parse("21/03/2022"), 150.00, ChargeStatus.PENDING, new ClientDTO(c1));
-        Charge ch2 = new Charge(null, "Mensalidade Fevereiro", sdf.parse("23/08/2022"), 150.00, ChargeStatus.OVERDUE,new ClientDTO(c1));
+        Charge ch1 = new Charge(null, "Mensalidade Janeiro", sdf.parse("21/01/2022"), 150.00, ChargeStatus.PENDING, new ClientDTO(c1) );
+        Charge ch2 = new Charge(null, "Mensalidade Fevereiro", sdf.parse("23/02/2022"), 150.00, ChargeStatus.OVERDUE,new ClientDTO(c1));
         Charge ch3 = new Charge(null, "IPVA", sdf.parse("29/08/2022"), 3000.00, ChargeStatus.PENDING, new ClientDTO(c2));
         Charge ch4 = new Charge(null, "Curso Alura", sdf.parse("30/08/2022"), 1500.00, ChargeStatus.PAID,new ClientDTO(c3));
 
@@ -51,5 +54,10 @@ public class instantiation implements CommandLineRunner {
         c3.getCharges().add(ch4);
 
         customerRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+        PaymentDTO p1 = new PaymentDTO(sdf.parse("31/03/2022"), ch4.getAmount(), PaymentMethod.CREDIT_CARD, PaymentStatus.CONFIRMED);
+
+        ch4.setPaymentDTO(p1);
+        chargeRepository.save(ch4);
     }
 }

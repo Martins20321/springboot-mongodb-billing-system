@@ -1,6 +1,7 @@
 package com.estudospringmartins.mongobilling.domain;
 
 import com.estudospringmartins.mongobilling.domain.enums.ChargeStatus;
+import com.estudospringmartins.mongobilling.dto.ClientDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,17 +19,17 @@ public class Charge implements Serializable {
     private Double amount;
     private ChargeStatus status;
 
-    private Customer customer;
+    private ClientDTO client;
     public Charge(){
 
     }
-    public Charge(String id, String description, Date dueDate, Double amount, ChargeStatus status, Customer customer) {
+    public Charge(String id, String description, Date dueDate, Double amount, ChargeStatus status, ClientDTO client) {
         this.id = id;
         this.description = description;
         this.dueDate = dueDate;
         this.amount = amount;
         this.status = status;
-        this.customer = customer;
+        this.client = client;
     }
 
     public String getId() {
@@ -71,12 +72,12 @@ public class Charge implements Serializable {
         this.status = status;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public ClientDTO getCustomer() {
+        return client;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(ClientDTO client) {
+        this.client = client;
     }
 
     @Override

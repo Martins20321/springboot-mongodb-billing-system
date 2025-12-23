@@ -5,11 +5,10 @@ import com.estudospringmartins.mongobilling.dto.CustomerDTO;
 import com.estudospringmartins.mongobilling.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,5 +30,13 @@ public class CustomerResource {
     public ResponseEntity<CustomerDTO> findById(@PathVariable String id){
         Customer obj = service.findById(id);
         return ResponseEntity.ok().body(new CustomerDTO(obj));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody CustomerDTO objDTO){
+        Customer customer = service.fromDTO(objDTO);
+        customer = service.insert(customer);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(customer.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }

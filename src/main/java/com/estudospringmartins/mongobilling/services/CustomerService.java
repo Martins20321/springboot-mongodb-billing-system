@@ -29,6 +29,10 @@ public class CustomerService {
         return repository.save(obj);
     }
 
+    public void delete(String id){
+        repository.deleteById(id);
+    }
+
     public Customer fromDTO(CustomerDTO customerDTO){
         return new Customer(customerDTO.getId(), customerDTO.getName(), customerDTO.getEmail(), customerDTO.getDocument());
     }

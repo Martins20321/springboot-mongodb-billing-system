@@ -1,10 +1,13 @@
 package com.estudospringmartins.mongobilling.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Document(collection = "customer")
 public class Customer implements Serializable {
@@ -14,6 +17,9 @@ public class Customer implements Serializable {
     private String name;
     private String email;
     private String document;
+
+    @DBRef(lazy = true)
+    private Set<Charge> charges = new HashSet<>();
 
     public Customer(){
 
@@ -56,6 +62,10 @@ public class Customer implements Serializable {
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public Set<Charge> getCharges() {
+        return charges;
     }
 
     @Override

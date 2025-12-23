@@ -45,5 +45,11 @@ public class instantiation implements CommandLineRunner {
         Charge ch4 = new Charge(null, "Curso Alura", sdf.parse("30/08/2022"), 1500.00, ChargeStatus.PAID,new ClientDTO(c3));
 
         chargeRepository.saveAll(Arrays.asList(ch1,ch2,ch3,ch4));
+
+        c1.getCharges().addAll(Arrays.asList(ch1,ch2));
+        c2.getCharges().add(ch3);
+        c3.getCharges().add(ch4);
+
+        customerRepository.saveAll(Arrays.asList(c1,c2,c3));
     }
 }

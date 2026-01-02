@@ -3,6 +3,7 @@ package com.estudospringmartins.mongobilling.resources;
 import com.estudospringmartins.mongobilling.domain.Charge;
 import com.estudospringmartins.mongobilling.domain.Customer;
 import com.estudospringmartins.mongobilling.dto.CustomerDTO;
+import com.estudospringmartins.mongobilling.resources.util.URL;
 import com.estudospringmartins.mongobilling.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class CustomerResource {
     public ResponseEntity<CustomerDTO> findById(@PathVariable String id){
         Customer obj = service.findById(id);
         return ResponseEntity.ok().body(new CustomerDTO(obj));
+    }
+
+    @GetMapping("/titlesearch")
+    public ResponseEntity<List<Customer>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        List<Customer> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}/charges")

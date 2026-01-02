@@ -25,6 +25,9 @@ public class CustomerService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not Found"));
     }
 
+    public List<Customer> findByTitle(String text){
+        return repository.findByTitleContaingIngonoreCase(text);
+    }
     public Customer insert(Customer obj){
         return repository.save(obj);
     }

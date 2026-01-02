@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends MongoRepository<Customer, String> {
 
-    public List<Customer> findByTitleContaingIngonoreCase(String text);
+    public List<Customer> findByTitleContaingIgnoreCase(String text);
 }

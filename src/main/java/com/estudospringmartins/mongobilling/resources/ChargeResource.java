@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,14 @@ public class ChargeResource {
     public ResponseEntity<Charge> findById(@PathVariable String id){
         Charge obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping("/titlesearch")
+    public ResponseEntity<List<Charge>> findByTitle(@RequestParam(value = "text", defaultValue = "")String text){
+        text = URLDecoder.decode(text);
+        List<Charge> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+
     }
 
     @PostMapping

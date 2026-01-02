@@ -26,7 +26,7 @@ public class CustomerService {
     }
 
     public List<Customer> findByTitle(String text){
-        return repository.findByTitleContaingIngonoreCase(text);
+        return repository.findByTitleContaingIgnoreCase(text);
     }
     public Customer insert(Customer obj){
         return repository.save(obj);

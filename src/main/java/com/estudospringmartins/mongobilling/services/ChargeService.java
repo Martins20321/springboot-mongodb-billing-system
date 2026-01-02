@@ -23,6 +23,9 @@ public class ChargeService {
         return obj.get();
     }
 
+    public List<Charge> findByTitle(String text){
+        return repository.findByTitleContaingIgnoreCase(text);
+    }
     public Charge insert(Charge obj){
         return repository.save(obj);
     }
